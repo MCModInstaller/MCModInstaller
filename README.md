@@ -20,7 +20,7 @@ plz wait...
 1. Please Install Python 3.5+, git
 2. Run This Commands
 ```
-pip3 install --upgrade --trusted-host wxpython.org --pre -f http://wxpython.org/Phoenix/snapshot-builds/ wxPython_Phoenix
+pip3 install --upgrade --pre -f https://wxpython.org/Phoenix/snapshot-builds/ wxPython_Phoenix
 git clone https://github.com/MCModInstaller/MCModInstaller
 cd MCModInstaller
 ```
