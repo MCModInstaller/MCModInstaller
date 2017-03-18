@@ -2,9 +2,11 @@ import sys
 import os
 import wx
 import modinstaller.main_window
+from modinstaller.utils import bind
 HOME = os.environ.get("HOME","")
 MINECRAFT_DIR = None
 def minecraft_profile_check(dir):
+    print("searching "+dir)
     ret = os.path.exists(dir+os.sep+"launcher_profiles.json")
     if ret:
         global MINECRAFT_DIR
@@ -19,11 +21,21 @@ def search_minecraft_profile():
     dialog = wx.Dialog(modinstaller.main_window.window)
     dialog.SetTitle("エラー - MCModInstaller")
     dialog_sizer = wx.BoxSizer(wx.VERTICAL)
-    label = wx.StaticText(dialog, label="Minecraftのランチャーの設定が見つかりません。\nランチャーを一度も起動していない場合は、ランチャーを起動してください。\nbatファイルや環境変数の変更などによって.minecraftディレクトリを変更している場合は、.minecraftディレクトリを指定してください。")
+    label = wx.StaticText(dialog, label="Minecraftのランチャーの設定が見つかりません。\nランチャーを一度も起動していない場合は、ランチャーを起動してください。\nbatファイルなどで.minecraftディレクトリの場所を変更している場合は、.minecraftディレクトリを指定してください。")
     dialog_sizer.Add(label,0,wx.ALL, 10)
     set_dir_button = wx.Button(dialog, label="場所を指定")
+    @bind(set_dir_button, wx.EVT_BUTTON)
+    def set_dir_button_clicked(e):
+        print("push set dir")
     research_button = wx.Button(dialog, label="再検索")
+    @bind(research_button, wx.EVT_BUTTON)
+    def research_button_clicked(e):
+        dialog.Close()
+        search_minecraft_profile()
     exit_button = wx.Button(dialog, label="終了")
+    @bind(exit_button, wx.EVT_BUTTON)
+    def exit_button_clicked(e):
+        sys.exit(0)
     dialog_buttons_sizer = wx.BoxSizer(wx.HORIZONTAL)
     dialog_buttons_sizer.Add((1,1),1)
     dialog_buttons_sizer.Add(set_dir_button, 0, wx.RIGHT, 5)
