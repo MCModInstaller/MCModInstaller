@@ -5,8 +5,7 @@ import modinstaller.main_window
 
 
 import modinstaller.servers_list
-modinstaller.servers_list.enabled()
-
-modinstaller.main_window.show()
+import modinstaller.main_tab
+modinstaller.main_window.window.Show()
 
 app.MainLoop()
